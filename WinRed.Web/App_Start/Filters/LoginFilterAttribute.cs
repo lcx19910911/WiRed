@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WinRed.Core.Extensions;
 
 namespace WinRed.Web.Filters
 {
@@ -53,7 +54,7 @@ namespace WinRed.Web.Filters
             {
                 if (areaName != null)
                 {
-                    if (!controller.LoginUser.Name.Equals("Admin",StringComparison.OrdinalIgnoreCase))
+                    if (!controller.LoginUser.NickName.IsNotNullOrEmpty()&& !controller.LoginUser.NickName.Equals("Admin",StringComparison.OrdinalIgnoreCase))
                     {
                         RedirectResult redirectResult = new RedirectResult("/login/index?redirecturl=" + requestUrl);
                         filterContext.Result = redirectResult;

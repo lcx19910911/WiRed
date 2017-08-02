@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using WinRed.Core.Util;
+using WinRed.Core.Extensions;
 using WinRed.Model;
 
 namespace WinRed.DB
@@ -39,12 +40,17 @@ namespace WinRed.DB
                         //初始化这些值，如果这些值为null时，自动赋值
                         if (entity.CreatedTime == new DateTime())
                             entity.CreatedTime = DateTime.Now;
+                        if (entity.ID.IsNullOrEmpty())
+                            entity.ID = Guid.NewGuid().ToString("N");
                         break;
                     case EntityState.Modified:
                         break;
                 }
+
+                entity.UpdatedTime = DateTime.Now;
             }
         }
+
 
         public override int SaveChanges()
         {
@@ -81,6 +87,10 @@ namespace WinRed.DB
         
 
         public DbSet<User> User { get; set; }
+
+        public DbSet<Recharge> Recharge { get; set; }
+        public DbSet<Withdrawals> Withdrawals { get; set; }
+        
     }
 
 }

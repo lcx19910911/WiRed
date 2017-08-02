@@ -35,9 +35,13 @@ namespace WinRed.Service
         {
             using (DbRepository entities = new DbRepository())
             {
-                string md5Password = Core.Util.CryptoHelper.MD5_Encrypt(password);
+                string md5Password = CryptoHelper.MD5_Encrypt(password);
 
-                return Result(Find(x => x.Account == account && x.Password == md5Password && !x.IsDelete));
+                var user = Find(x => x.Account == account && x.Password == md5Password && !x.IsDelete);
+                if (user == null)
+                    return Result(new User());
+                else 
+                    return Result(user);
             }
         }
 
@@ -68,9 +72,6 @@ namespace WinRed.Service
                 {
                     OpenId = model.openid.Trim(),
                     NickName = model.nickname,
-                    Country = model.country,
-                    Province = model.province,
-                    City = model.city,
                     Sex = model.sex.GetInt(),
                     HeadImgUrl = model.headimgurl,
                     CreatedTime = DateTime.Now
@@ -81,9 +82,6 @@ namespace WinRed.Service
             else
             {
                 user.NickName = model.nickname;
-                user.Country = model.country;
-                user.Province = model.province;
-                user.City = model.city;
                 user.Sex = model.sex.GetInt();
                 user.HeadImgUrl = model.headimgurl;
                 Update(user);
@@ -107,7 +105,7 @@ namespace WinRed.Service
                 var query = db.User.Where(x => !x.IsDelete);
                 if (name.IsNotNullOrEmpty())
                 {
-                    query = query.Where(x => x.RealName.Contains(name));
+                    query = query.Where(x => x.NickName.Contains(name));
                 }
                 if (type != null)
                 {
@@ -143,7 +141,7 @@ namespace WinRed.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public WebResult<bool> Add(User model)
+        public new WebResult<bool> Add(User model)
         {
             if (model.Type != UserType.User)
             {
@@ -170,8 +168,7 @@ namespace WinRed.Service
             var user = Find(model.ID);
             if(user==null)
                 return Result(false, ErrorCode.system_name_already_exist);
-            user.RealName = model.RealName;
-            user.MobilePhone = model.MobilePhone;
+            user.NickName = model.NickName;
             base.Update(user);
             return Result(true);
 

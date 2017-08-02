@@ -23,17 +23,13 @@ namespace WinRed.IService
 
         WebResult<User> Login(string account, string password);
 
-        /// <summary>
-        /// 获取用户所有的会议厅
-        /// </summary>
-        /// <returns></returns>
-        List<User> GetList(Expression<Func<User, bool>> predicate = null);
  
 
         User FindByOpenId(string openid);
         
 
         WebResult<bool> ChangePassword(string oldPassword, string newPassword, string cfmPassword, string id);
+
 
     }
 }

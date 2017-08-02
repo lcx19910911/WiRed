@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -83,11 +88,23 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -124,6 +141,10 @@
       <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -133,6 +154,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -142,6 +167,10 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -169,10 +198,92 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\HtmlTemplates\Admin\ChangePassword.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Admin\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Meet\Report.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Meet\SelectFile.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Meet\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Plan\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Room\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Speaker\Index.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Speaker\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\User\ChangePassword.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\User\Update.html" />
     <Content Include="Global.asax" />
+    <Content Include="Images\404Pic.png" />
+    <Content Include="Images\avtar.png" />
+    <Content Include="Images\loading.jpg" />
+    <Content Include="Images\send_fail.png" />
+    <Content Include="Images\send_ing.png" />
+    <Content Include="Images\send_ing1.png" />
+    <Content Include="Images\upload_btn.png" />
+    <Content Include="Images\upload_btn1.png" />
+    <Content Include="Scripts\amazeui.min.js" />
+    <Content Include="Scripts\avalon.js" />
+    <Content Include="Scripts\file_upload_plug-in.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery-validation\js\additional-methods.min.js" />
+    <Content Include="Scripts\jquery-validation\js\jquery.validate.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\My97DatePicker\calendar.js" />
+    <Content Include="Scripts\My97DatePicker\config.js" />
+    <Content Include="Scripts\My97DatePicker\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\My97DatePicker.htm" />
+    <Content Include="Scripts\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\Nuoya\nuoya.core.js" />
+    <Content Include="Scripts\Nuoya\nuoya.form.js" />
+    <Content Include="Scripts\Nuoya\nuoya.grid.js" />
+    <Content Include="Scripts\Nuoya\nuoya.other.js" />
+    <Content Include="Scripts\tipso\css\tipso.min.css" />
+    <Content Include="Scripts\tipso\js\tipso.js" />
+    <Content Include="Styles\admin.css" />
+    <Content Include="Styles\css\amazeui.css" />
+    <Content Include="Styles\css\amazeui.datetimepicker.css" />
+    <Content Include="Styles\css\amazeui.min.css" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Styles\datetimepicker\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Styles\datetimepicker\images\ui-icons_222222_256x240.png" />
+    <Content Include="Styles\datetimepicker\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Styles\datetimepicker\images\ui-icons_454545_256x240.png" />
+    <Content Include="Styles\datetimepicker\images\ui-icons_888888_256x240.png" />
+    <Content Include="Styles\datetimepicker\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Styles\datetimepicker\jquery-ui.css" />
+    <Content Include="Styles\fonts\fontawesome-webfont.svg" />
+    <Content Include="Styles\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\2.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\3.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\4.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\5.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\6.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\7.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\8.png" />
+    <Content Include="Styles\zTreeStyle\img\diy\9.png" />
+    <Content Include="Styles\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Styles\zTreeStyle\img\loading.gif" />
+    <Content Include="Styles\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Styles\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Styles\zTreeStyle\zTreeStyle.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="App_Start\Filters\LoginFilterAttribute.cs" />
@@ -180,6 +291,9 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="ChatStartup.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -194,6 +308,20 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Custom.config" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Styles\fonts\fontawesome-webfont.eot" />
+    <Content Include="Styles\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Styles\fonts\fontawesome-webfont.woff" />
+    <Content Include="Styles\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Styles\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Views\Shared\Forbidden.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="NLog.config" />
+    <Content Include="Areas\Admin\Views\User\Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Recharge.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -203,9 +331,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Config\" />
+    <Folder Include="css\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

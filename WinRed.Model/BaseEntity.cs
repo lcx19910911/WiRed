@@ -20,7 +20,13 @@ namespace WinRed.Model
         /// </summary>
         [Display(Name = "创建时间")]
         [Required]
-        public System.DateTime CreatedTime { get; set; }       
+        public System.DateTime CreatedTime { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [Display(Name = "创建时间")]
+        [Required]
+        public System.DateTime UpdatedTime { get; set; }
 
         /// <summary>
         /// 状态枚举

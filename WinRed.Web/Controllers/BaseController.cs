@@ -6,9 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Text;
 using WinRed.Core;
-using WinRed.Service;
-using WinRed.Code;
 using Microsoft.AspNet.SignalR;
+using WinRed.Core.Helper;
+using WinRed.Core.Model;
+using WinRed.Core.Code;
+using WinRed.Model;
+using WinRed.Core.Extensions;
 
 namespace WinRed.Web.Controllers
 {
@@ -222,19 +225,15 @@ namespace WinRed.Web.Controllers
         }
 
 
-        private LoginUser _loginUser = null;
+        private User _loginUser = null;
 
-        public LoginUser LoginUser
+        public User LoginUser
         {
             get
             {
                 if (_loginUser == null)
                 {
-                    var cookie = this.Request.Cookies[Params.UserCookieName];
-                    if (cookie != null)
-                        return CryptoHelper.AES_Decrypt(this.Request.Cookies[Params.UserCookieName].Value, Params.SecretKey).DeserializeJson<LoginUser>();
-                    else
-                        return null;
+                    return LoginHelper.GetCurrentUser();
                 }
                 else
                 {
@@ -243,12 +242,7 @@ namespace WinRed.Web.Controllers
             }
             set
             {
-                HttpCookie cookie = new HttpCookie(Params.UserCookieName);
-                cookie.Value = CryptoHelper.AES_Encrypt(value.ToJson(), Params.SecretKey);
-                cookie.Expires = DateTime.Now.AddYears(1);
-                // 写登录Cookie
-                Response.Cookies.Remove(cookie.Name);
-                Response.Cookies.Add(cookie);
+                LoginHelper.CreateUser(value);
             }
         }       
     }

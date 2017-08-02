@@ -2,6 +2,8 @@ using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using System.Reflection;
+using WinRed.IService;
+using WinRed.Service;
 
 namespace WinRed.Web.App_Start
 {
@@ -39,7 +41,9 @@ namespace WinRed.Web.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
 
-            //container.RegisterType<IProductRepository, ProductRepository>
+            container.RegisterType<IUserService, UserService>();
+            container.RegisterType<IRechargeService, RechargeService>();
+            container.RegisterType<IWithdrawalsService, WithdrawalsService>();
         }
     }
 }

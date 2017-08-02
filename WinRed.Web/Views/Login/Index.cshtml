@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/css/amazeui.min.css" rel="stylesheet" />
+    <style>
+        .header {
+            text-align: center;
+        }
+
+            .header h1 {
+                font-size: 200%;
+                color: #333;
+                margin-top: 30px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+    </style>
+    <script>
+        function ShowLoading() {
+            $("#loadingDiv").show();
+        }
+        function CloseLoading() {
+            $("#loadingDiv").hide();
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="am-g">
+            <h1>管理后台 - 登录</h1>
+        </div>
+        <hr />
+    </div>
+    <div class="am-g">
+        <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+            <form method="post" class="am-form" id="form">
+                <label for="account">账号:</label>
+                <input type="text" name="account" value="">
+                <br>
+                <label for="password">密码:</label>
+                <input type="password" name="password" value="">
+                <br>
+                <div class="am-cf">
+                    <input type="button" id="btnSubmit" name="" value="登 录" class="am-btn am-btn-primary  am-btn-block" onclick="Login()">
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+
+        function Login() {
+            var account = $("[name='account']").val();
+            var password = $("[name='password']").val();
+            if (account == "") {
+                alert("请输入账号");
+                return false;
+            }
+            if (password == "") {
+                alert("请输入密码");
+                return false;
+            }
+            $.ajax({
+                    url: "/Login/Submit",
+                    data: { password: password, account: account },
+                    success: function (data) {
+                        if (data.Code==0) {
+                            window.location.href = "@(string.IsNullOrEmpty(Request["redirecturl"])?"/": Request["redirecturl"])";
+                        }
+                        else {
+                            alert(data.Append);
+                        }
+                    }
+                }
+        );
+        }
+    </script>
+</body>
+</html>

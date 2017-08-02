@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "充值记录";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><a href="/"><strong class="am-text-primary am-text-lg">首页</strong></a> /<small>计划管理</small></div>
+</div>
+<div id="searchDomain">
+
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <input type="hidden" name="userId" value="@(Request["userId"])" />
+
+                <span class="am-input-group-label  am-margin-left-sm">充值日期</span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
+                <span class="am-input-group-label"> - </span>
+                <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="ID" type="checkbox"></th>
+                <th dataname="User.Name">充值者</th>
+                <th dataname="Count">金额</th>
+                <th dataname="VoucherNo">转账订单号</th>
+                <th render="showImg">传张截图</th>
+                <th dataname="CreaterUser.Name">创建者</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        function ClearFilter() {
+            $("#searchDomain input").val("");
+        }
+        $('[name=createdTimeStart]').datepicker({ format: 'yyyy-mm-dd' });
+        $('[name=createdTimeEnd]').datepicker({ format: 'yyyy-mm-dd' });
+
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/Admin/User/GetRechargePageList",
+            //数据请求地址
+            pageSize: 10,
+            events: [
+            ]
+        });
+    </script>
+}

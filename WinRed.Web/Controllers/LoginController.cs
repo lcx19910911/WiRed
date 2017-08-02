@@ -46,8 +46,6 @@ namespace WinRed.Web.Controllers
                 if (!string.IsNullOrEmpty(code))
                 {
                     var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + Params.WeixinAppId + "&secret=" + Params.WeixinAppSecret + "&code=" + code + "&grant_type=authorization_code";
-
-
                     string responseResult = WebHelper.GetPage(url);
 
                     if (responseResult.Contains("access_token"))
@@ -69,9 +67,6 @@ namespace WinRed.Web.Controllers
                                     NickName = obj3["nickname"].ToString(),
                                     OpenId = obj3["openid"].ToString(),
                                     Sex = obj3["sex"].GetInt(),
-                                    Province = obj3["province"].ToString(),
-                                    City = obj3["city"].ToString(),
-                                    Country = obj3["country"].ToString(),
                                     HeadImgUrl = obj3["headimgurl"].ToString()
                                 };
                                 IUserService.Add(model);
@@ -97,7 +92,7 @@ namespace WinRed.Web.Controllers
                 }
                 else if (!string.IsNullOrEmpty(this.Request.QueryString["state"]))
                 {
-                    this.Response.Redirect("https://" + Params.DomianName);
+                    this.Response.Redirect("https://" + Params.DomianUrl);
                 }
                 else
                 {
@@ -142,9 +137,9 @@ namespace WinRed.Web.Controllers
         public JsonResult Submit(string account, string password)
         {
             var result = IUserService.Login(account, password);
-            if (result.Result != null)
+            if (result.Result!=null)
             {
-                LoginHelper.CreateUser(result.Result);
+                base.LoginUser=result.Result;
             }
             return JResult(result);
 

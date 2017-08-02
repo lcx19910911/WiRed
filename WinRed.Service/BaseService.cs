@@ -45,7 +45,7 @@ namespace WinRed.Service
                 var addEntity = source.AutoMap<T>();
                 db.Entry(addEntity).State = System.Data.Entity.EntityState.Added;
                 if (db.SaveChanges() > 0)
-                    return addEntity.ID;
+                    return 1;
                 else
                     return 0;
             }
