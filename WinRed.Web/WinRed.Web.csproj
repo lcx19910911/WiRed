@@ -294,6 +294,8 @@
     <Compile Include="Areas\Admin\Controllers\BaseAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="ChatStartup.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -323,8 +325,11 @@
     <Content Include="Areas\Admin\Views\User\Admin.cshtml" />
     <Content Include="Areas\Admin\Views\User\Recharge.cshtml" />
     <Content Include="Views\Base\_404.cshtml" />
-    <Content Include="Views\Base\_505.cshtml" />
+    <Content Include="Views\Base\_500.cshtml" />
     <Content Include="Areas\Admin\Views\User\Withdrawals.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

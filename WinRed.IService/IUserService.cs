@@ -30,6 +30,7 @@ namespace WinRed.IService
 
         WebResult<bool> ChangePassword(string oldPassword, string newPassword, string cfmPassword, string id);
 
-
+        WebResult<bool> Register(User model);
+        WebResult<bool> Update_User(User model);
     }
 }

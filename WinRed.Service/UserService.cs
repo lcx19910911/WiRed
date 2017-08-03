@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using WinRed.Core;
 using WinRed.Core.Code;
 using WinRed.Core.Extensions;
 using WinRed.Core.Helper;
@@ -126,6 +127,7 @@ namespace WinRed.Service
                         TotalRecharge = x.TotalRecharge,
                         TotalWithdrawals = x.TotalWithdrawals,
                         Sex = x.Sex,
+                        WechatNum=x.WechatNum,
                         CreatedTime = x.CreatedTime
                     });
                 });
@@ -150,18 +152,23 @@ namespace WinRed.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public new WebResult<bool> Add(User model)
+        public WebResult<bool> Register(User model)
         {
-            if (model.Type != UserType.User)
+            if (model.WechatNum.IsNullOrEmpty())
+                return Result(false, ErrorCode.sys_param_format_error);
+            model.Type = UserType.User;
+            if (IsExits(x => x.Account == model.Account))
+                return Result(false, ErrorCode.system_name_already_exist);
+            if (model.HeadImgUrl.IsNullOrEmpty())
+                model.HeadImgUrl = "/Images/avtar.png";
+            model.Password = CryptoHelper.MD5_Encrypt(model.NewPassword);
+            if (base.Add(model) > 0)
             {
-                if (IsExits(x => x.Account == model.Account))
-                    return Result(false, ErrorCode.system_name_already_exist);
-                if (model.HeadImgUrl.IsNullOrEmpty())
-                    model.HeadImgUrl = "/Images/avtar.png";
-                model.Password = CryptoHelper.MD5_Encrypt(model.Password);
+                LoginHelper.CreateUser(model);
+                return Result(true);
             }
-            base.Add(model);
-            return Result(true);
+            else
+                return Result(false);
         }
 
 
@@ -170,16 +177,23 @@ namespace WinRed.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public WebResult<bool> Update(User model)
+        public WebResult<bool> Update_User(User model)
         {
+            if (model.WechatNum.IsNullOrEmpty())
+                return Result(false, ErrorCode.sys_param_format_error);
             if (IsExits(x => x.Account == model.Account && x.ID != model.ID))
                 return Result(false, ErrorCode.user_phone_already_exist);
             var user = Find(model.ID);
             if(user==null)
                 return Result(false, ErrorCode.system_name_already_exist);
             user.NickName = model.NickName;
-            base.Update(user);
-            return Result(true);
+            if (base.Update(user) > 0)
+            {
+                LoginHelper.CreateUser(model);
+                return Result(true);
+            }
+            else
+                return Result(false);
 
         }
 

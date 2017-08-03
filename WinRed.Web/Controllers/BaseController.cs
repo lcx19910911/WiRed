@@ -242,7 +242,10 @@ namespace WinRed.Web.Controllers
             }
             set
             {
-                LoginHelper.CreateUser(value);
+                if (value == null)
+                    LoginHelper.ClearUser();
+                else
+                    LoginHelper.CreateUser(value);
             }
         }       
     }

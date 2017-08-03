@@ -24,6 +24,21 @@ namespace WinRed.Model
         public string Password { get; set; }
 
         /// <summary>
+        /// 请输入密码
+        /// </summary>
+        [Display(Name = "请输入密码")]
+        [MaxLength(12), MinLength(6)]
+        [NotMapped]
+        public string NewPassword { get; set; }
+
+        /// <summary>
+        /// 再次输入密码
+        /// </summary>
+        [MaxLength(12), MinLength(6), Compare("NewPassword", ErrorMessage = "两次密码输入不一致")]
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
+
+        /// <summary>
         /// 用户类型
         /// </summary>
         public UserType Type { get; set; } = UserType.User;
@@ -34,6 +49,7 @@ namespace WinRed.Model
         /// 昵称
         /// </summary>
         [Display(Name = "昵称"), MaxLength(32)]
+        [Required]
         public string NickName { get; set; }
         /// <summary>
         /// 头像
@@ -74,12 +90,12 @@ namespace WinRed.Model
         public virtual List<Withdrawals> AuditWithdrawals { get; set; }
 
 
-        /// <summary>
-        /// 转账二维码
-        /// </summary>
-        [MaxLength(128)]
-        public string QrcodeImg { get; set; }
 
+        /// <summary>
+        /// 微信号
+        /// </summary>
+        [Display(Name = "提现总额")]
+        public string WechatNum { get; set; }
     }
 
     public enum UserType

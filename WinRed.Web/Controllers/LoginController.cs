@@ -28,12 +28,17 @@ namespace WinRed.Web.Controllers
         
         // GET: Login
         public ActionResult Index()
-        { 
-            if (Request.UserAgent.IsNotNullOrEmpty() && Request.UserAgent.ToLower().Contains("micromessenger"))
+        {
+            if (Params.IsUseWechat)
             {
-                WeixinLoginAction();
+                if (Request.UserAgent.IsNotNullOrEmpty() && Request.UserAgent.ToLower().Contains("micromessenger"))
+                {
+                    WeixinLoginAction();
+                }
+                return View();
             }
-            return View();
+            else
+                return RedirectToAction("Register", "User");
         }
 
 

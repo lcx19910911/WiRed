@@ -12,6 +12,12 @@ namespace WinRed.Core
     public class Params
     {
 
+        
+        /// <summary>
+        /// 是否使用微信授权
+        /// </summary>
+        public static readonly bool IsUseWechat = CustomHelper.GetValue("IsUseWechat")=="True";
+
         /// <summary>
         /// 网站地址
         /// </summary>
