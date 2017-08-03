@@ -121,7 +121,15 @@
                 click: function (item) {
                     window.location.href = "/admin/User/Recharge?userId=" + item.ID;
                 }
-            }
+            },
+                 {
+                     className: "am-text-success",
+                     icon: "icon-bluetooth-b",
+                     name: "提现记录",
+                     click: function (item) {
+                         window.location.href = "/admin/User/Withdrawals?userId=" + item.ID;
+                     }
+                 }
             ]
         });
 

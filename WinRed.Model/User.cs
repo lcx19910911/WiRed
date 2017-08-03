@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace WinRed.Model
 {
@@ -57,9 +58,9 @@ namespace WinRed.Model
         /// </summary>
         [Display(Name = "充值总额")]
         public int TotalRecharge { get; set; }
-
+        [JsonIgnore]
         public virtual List<Recharge> UserRecharges { get; set; }
-
+        [JsonIgnore]
         public virtual List<Recharge> CreateRecharges { get; set; }
 
         /// <summary>
@@ -67,11 +68,17 @@ namespace WinRed.Model
         /// </summary>
         [Display(Name = "提现总额")]
         public int TotalWithdrawals { get; set; }
+        [JsonIgnore]
         public virtual List<Withdrawals> UserWithdrawals { get; set; }
-
+        [JsonIgnore]
         public virtual List<Withdrawals> AuditWithdrawals { get; set; }
 
 
+        /// <summary>
+        /// 转账二维码
+        /// </summary>
+        [MaxLength(128)]
+        public string QrcodeImg { get; set; }
 
     }
 

@@ -190,6 +190,16 @@
                                 <span class="am-icon-user"></span> 用户管理
                             </a>
                         </li>
+                        <li>
+                            <a data-am-collapse="{target: '#用户管理'}" class="am-cf am-collapsed" href="/Admin/User/Recharge">
+                                <span class="am-icon-user"></span> 充值管理
+                            </a>
+                        </li>
+                        <li>
+                            <a data-am-collapse="{target: '#用户管理'}" class="am-cf am-collapsed" href="/Admin/User/Withdrawals">
+                                <span class="am-icon-user"></span> 提现管理
+                            </a>
+                        </li>
 
                         @if (currentUser != null && currentUser.Type == UserType.SuperAdmin)
                         {

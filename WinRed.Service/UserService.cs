@@ -102,7 +102,7 @@ namespace WinRed.Service
         {
             using (DbRepository db = new DbRepository())
             {
-                var query = db.User.Where(x => !x.IsDelete);
+                var query = db.User.Where(x => !x.IsDelete).Include(x=>x.UserRecharges);
                 if (name.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.NickName.Contains(name));
@@ -113,14 +113,23 @@ namespace WinRed.Service
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var returnList = new List<User>();
                 list.ForEach(x =>
                 {
-                    if (x != null)
+                    returnList.Add(new User()
                     {
-                    }
+                        ID = x.ID,
+                        Balance = x.Balance,
+                        HeadImgUrl = x.HeadImgUrl,
+                        NickName = x.NickName,
+                        AuditWithdrawals = x.AuditWithdrawals,
+                        TotalRecharge = x.TotalRecharge,
+                        TotalWithdrawals = x.TotalWithdrawals,
+                        Sex = x.Sex,
+                        CreatedTime = x.CreatedTime
+                    });
                 });
-
-                return CreatePageList(list, pageIndex, pageSize, count);
+                return CreatePageList(returnList, pageIndex, pageSize, count);
 
             }
         }

@@ -128,7 +128,7 @@ namespace WinRed.Web
                 LogHelper.WriteException("Application Error.", Server.GetLastError());
                 Server.ClearError();
                 Response.Clear();
-                Response.Redirect("/base/_505");
+                Response.Redirect("/base/_500");
             }
 
         }

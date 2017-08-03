@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "充值记录";
+    ViewBag.Title = "提现记录";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <div class="am-cf am-padding">
-    <div class="am-fl am-cf"><a href="/"><strong class="am-text-primary am-text-lg">首页</strong></a> /<small>充值记录</small></div>
+    <div class="am-fl am-cf"><a href="/"><strong class="am-text-primary am-text-lg">首页</strong></a> /<small>提现记录</small></div>
 </div>
 <div id="searchDomain">
 
@@ -13,7 +13,7 @@
             <div class="am-input-group am-input-group-sm">
                 <input type="hidden" name="userId" value="@(Request["userId"])" />
 
-                <span class="am-input-group-label  am-margin-left-sm">充值日期</span>
+                <span class="am-input-group-label  am-margin-left-sm">提现日期</span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeStart" readonly style="width:auto;">
                 <span class="am-input-group-label"> - </span>
                 <input type="text" class="am-form-field" placeholder="请选择日期" name="createdTimeEnd" readonly style="width:auto;">
@@ -30,11 +30,12 @@
         <thead>
             <tr>
                 <th dataname="ID" type="checkbox"></th>
-                <th dataname="UserName">充值者</th>
+                <th dataname="UserName">提现者</th>
                 <th dataname="Count">金额</th>
                 <th dataname="VoucherNo">转账订单号</th>
                 <th render="showImg">转账截图</th>
-                <th dataname="CreaterUserName">创建者</th>
+                <th dataname="AuditUserName">审核者</th>
+                <th dataname="StateStr">审核状态</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>
@@ -59,7 +60,7 @@
                 domainId: "searchDomain",
                 subId: "btnSearch"
             },
-            ajaxUrl: "/Admin/User/GetRechargePageList",
+            ajaxUrl: "/Admin/User/GetWithdrawalsPageList",
             //数据请求地址
             pageSize: 10,
             events: [

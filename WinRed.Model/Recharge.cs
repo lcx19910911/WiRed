@@ -19,7 +19,10 @@ namespace WinRed.Model
         /// </summary>
         // User_ID
         [InverseProperty("UserRecharges")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
+
+        [NotMapped]
+        public string UserName { get; set; }
 
         /// <summary>
         /// ip
@@ -32,7 +35,9 @@ namespace WinRed.Model
         /// </summary>
         // CreaterUser_ID
         [InverseProperty("CreateRecharges")]
-        public User CreaterUser { get; set; }
+        public virtual User CreaterUser { get; set; }
+        [NotMapped]
+        public string CreaterUserName { get; set; }
 
         /// <summary>
         /// 转账 微信订单号

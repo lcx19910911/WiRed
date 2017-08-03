@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace WinRed.Model
         /// </summary>
         //User_ID
         [InverseProperty("UserWithdrawals")]
-        public  User User { get; set; }
+        public virtual User User { get; set; }
+
+        [NotMapped]
+        public string UserName { get; set; }
 
         /// <summary>
         /// ip
@@ -32,7 +36,10 @@ namespace WinRed.Model
         /// </summary>
         //AuditUser_ID
         [InverseProperty("AuditWithdrawals")]
+
         public User AuditUser { get; set; }
+        [NotMapped]
+        public string AuditUserName { get; set; }
 
         public AuditState State { get; set; } = AuditState.Wait;
 
@@ -53,14 +60,17 @@ namespace WinRed.Model
     }
     public enum AuditState
     {
-        Wait=0,
+        [Description("等待审核")]
+        Wait =0,
         /// <summary>
         /// 转账成功
         /// </summary>
-        Success=1,
+        [Description("已转账")]
+        Success =1,
         /// <summary>
         /// 驳回
         /// </summary>
-        Reject=2
+        [Description("已驳回")]
+        Reject =2
     }
 }

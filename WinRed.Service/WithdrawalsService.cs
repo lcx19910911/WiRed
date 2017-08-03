@@ -31,6 +31,7 @@ namespace WinRed.Service
             using (DbRepository db = new DbRepository())
             {
                 var list = new List<Withdrawals>();
+                var returnList = new List<Withdrawals>();
                 var count = 0;
                 if (userId.IsNotNullOrEmpty())
                 {
@@ -49,9 +50,7 @@ namespace WinRed.Service
                         }
                         count = query.Count();
                         list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                    }
-
-                    return CreatePageList(list, pageIndex, pageSize, count);
+                    }               
                 }
                 else
                 {
@@ -67,8 +66,25 @@ namespace WinRed.Service
                     }
                     count = query.Count();
                     list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                    return CreatePageList(list, pageIndex, pageSize, count);
                 }
+
+
+                list.ForEach(x =>
+                {
+                    returnList.Add(new Withdrawals()
+                    {
+                        UserName = x.User.NickName,
+                        AuditUserName = x.AuditUser?.NickName,
+                        CreatedTime = x.CreatedTime,
+                        Count = x.Count,
+                        ID = x.ID,
+                        VoucherImg = x.VoucherImg,
+                        VoucherNo = x.VoucherNo,
+                        StateStr=x.State.GetDescription(),
+                        State=x.State
+                    });
+                });
+                return CreatePageList(returnList, pageIndex, pageSize, count);
             }
         }
     }

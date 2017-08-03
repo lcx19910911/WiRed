@@ -28,13 +28,14 @@ namespace WinRed.Service
             using (DbRepository db = new DbRepository())
             {
                 var list = new List<Recharge>();
+                var returnList = new List<Recharge>();
                 var count = 0;
                 if (userId.IsNotNullOrEmpty())
                 {
                     var user = db.User.Find(userId);
                     if (user != null&&user.UserRecharges!=null&&user.UserRecharges.Count>0)
                     {
-                        var query = user.UserRecharges.AsQueryable();
+                        var query = user.UserRecharges.AsQueryable().Include("User");
                         if (createdTimeStart != null)
                         {
                             query = query.Where(x => x.CreatedTime >= createdTimeStart);
@@ -47,12 +48,11 @@ namespace WinRed.Service
                         count = query.Count();
                         list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                     }
-
-                    return CreatePageList(list, pageIndex, pageSize, count);
+                    
                 }
                 else
                 {
-                    var query = db.Recharge.AsQueryable();
+                    var query = db.Recharge.AsQueryable().Include("CreaterUser");
                     if (createdTimeStart != null)
                     {
                         query = query.Where(x => x.CreatedTime >= createdTimeStart);
@@ -64,8 +64,21 @@ namespace WinRed.Service
                     }
                     count = query.Count();
                     list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                    return CreatePageList(list, pageIndex, pageSize, count);
                 }
+                list.ForEach(x =>
+                {
+                    returnList.Add(new Recharge()
+                    {
+                        UserName=x.User.NickName,
+                        CreaterUserName=x.CreaterUser.NickName,
+                        CreatedTime=x.CreatedTime,
+                        Count=x.Count,
+                        ID=x.ID,
+                        VoucherImg=x.VoucherImg,
+                        VoucherNo=x.VoucherNo
+                    });
+                });
+                return CreatePageList(returnList, pageIndex, pageSize, count);
             }
          }
     }

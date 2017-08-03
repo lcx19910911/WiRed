@@ -322,6 +322,9 @@
     <Content Include="NLog.config" />
     <Content Include="Areas\Admin\Views\User\Admin.cshtml" />
     <Content Include="Areas\Admin\Views\User\Recharge.cshtml" />
+    <Content Include="Views\Base\_404.cshtml" />
+    <Content Include="Views\Base\_505.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Withdrawals.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

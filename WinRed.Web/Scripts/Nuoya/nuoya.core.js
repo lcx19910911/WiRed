@@ -56,6 +56,7 @@
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    debugger
                 },
                 complete: function (XMLHttpRequest, textStatus) {
                 }
