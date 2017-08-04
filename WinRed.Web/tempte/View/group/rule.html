@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="红包扫雷">
+    <title>高速规则</title>
+
+    <link href="/content/css/weui.min.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/jquery-weui.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/style.css" rel="stylesheet" type="text/css">
+    
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/jquery.json.js" type="text/javascript"></script>
+    <script src="/scripts/jquery-weui.js" type="text/javascript"></script>
+    <script src="/Scripts/signalR/jquery.signalR-1.1.4.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+
+    <script src="/scripts/base/base.js" type="text/javascript"></script>
+    <script src="/scripts/home/index.js" type="text/javascript"></script>
+    <script src="/scripts/extention/jquery.common.msajax.js" type="text/javascript"></script>
+    
+
+    
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx3dc7fed192b9287e', // 必填，公众号的唯一标识
+            timestamp: '1501838820', // 必填，生成签名的时间戳
+            nonceStr: 'chDPsFiT3HVQaIpr', // 必填，生成签名的随机串
+            signature: '7d3a30090e534989d60b0b16c4299599b89bb7d1', // 必填，签名，见附录1
+            jsApiList: [
+                'getLocation',
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'scanQRCode', 'openLocation'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group/rule?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group/rule?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group/rule?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group/rule?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+    
+
+
+<header class="bar bar-nav">
+    <h1 class="title">规则说明</h1>
+</header>
+<div style="margin: 3rem 10px;">
+    <p><strong><span style="font-size:20px;font-family:宋体">规则</span></strong></p><p style="text-indent:32px"><span style="font-size:16px;font-family:宋体">拒绝跑包、拒绝骗押金、拒绝外挂、公平娱乐！除非地球爆炸，我们永不封群封号！一键组群，一键进入房间，方便简单，轻松扫雷！</span></p><p class="MsoListParagraph" style="margin-left:0;text-indent:0"><span style="font-size:16px">&nbsp; &nbsp; &nbsp; 1、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">任何玩家都可以组群，平台将收取一定的组群费用，系统根据活跃度自动排序</span><span style="font-size:16px;font-family:宋体">；</span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="font-size:16px">2、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">账户余额不得少于所抢红包踩雷赔付的保证金才可以抢包；</span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="font-size:16px">3、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">组群须设置福利金额，账户余额不得少于需发福利的金额方可组群，余额不足以支付福利金额的时候暂停发包；</span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="font-size:16px">4、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">踩雷自动赔包，赔包金额需扣除平台管理费；</span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="font-size:16px">5、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">可发可抢玩法群主抢包免死，抢包金额需扣除平台管理费；</span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="font-size:16px">6、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">红包未抢完的，发出后六小时自动退回。群主解散房间，发出的红包自动退回；</span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="color: rgb(255, 0, 0);"><strong><span style="font-size: 16px; font-family: 宋体;">7、充值提现处理时间10：00---凌晨2:00，请安排好自己的余额；</span></strong></span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="color: rgb(255, 0, 0);"><strong><span style="font-size: 16px; font-family: 宋体;">&nbsp;<span style="color: rgb(255, 0, 0); font-family: 宋体; font-size: 20px;">特别提示:充值请备注填写微信昵称!!!</span></span></strong></span></p><p class="MsoListParagraph" style="margin-left:28px"><span style="font-size:16px">8、<span style="font-variant-numeric: normal;font-stretch: normal;font-size: 9px;line-height: normal;font-family: &#39;Times New Roman&#39;">&nbsp; </span></span><span style="font-size:16px;font-family:宋体">更多咨询请加客服微信：</span><span style="font-size:16px">aisaolei999</span></p><p class="MsoListParagraph" style="margin-left:64px;text-indent:0"><span style="font-size:16px">&nbsp;</span></p><p><br/></p>
+</div>
+
+<div class="weui-tabbar" id="footer">
+    <a href="/" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="index"></i></div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/member/recharge" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon"><i class="addico"></i></div>
+        <p class="weui-tabbar__label">添加金币</p>
+    </a>
+
+    <a href="/group/newgroup" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="zuqunico"></i></div>
+        <p class="weui-tabbar__label">组群</p>
+    </a>
+    <a href="/member" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="centerico"></i></div>
+        <p class="weui-tabbar__label">个人中心</p>
+    </a>
+</div>
+</body>
+</html>

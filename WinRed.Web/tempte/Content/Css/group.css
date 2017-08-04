@@ -1,0 +1,119 @@
+﻿body {
+            background-color: #ebebeb
+        }
+
+        /*        #main {
+                    height:1800px;
+                    padding-top:90px;
+                    text-align:center;
+                }*/
+        #fullbg {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.8);
+            visibility: visible;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0.8;
+            filter: alpha(opacity=20);
+            -moz-opacity: 0.8;
+            -khtml-opacity: 0.8;
+            z-index: 990;
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -ms-transition-duration: .5s;
+            -o-transition-duration: .35s;
+            transition-duration: .5s;
+        }
+
+        #dialog {
+            width: 80%;
+            height: 80%;
+            background: url(../images/hbbg.png) no-repeat;
+            background-size: contain;
+            left: 50%;
+            margin: -50% 0 0 -40%;
+            position: absolute;
+            top: 50%;
+            z-index: 999;
+            display: none;
+        }
+
+        #dialog .close {
+            display: block;
+            margin: 10px 10px 0 12px;
+            line-height: 18px;    text-align: right;
+        }
+
+        #dialog .close a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: url("../images/close1.png");
+            background-size: contain;
+            text-decoration: none;
+        }
+
+        .hongbaoinfo {
+            margin-bottom: .5rem
+        }
+
+        .hbhead img {
+            width: 45px;
+            box-sizing: border-box;
+            border-radius: 10px
+        }
+
+        .hongbaoinfo p.hb_name, .hb_title {
+            text-align: center;
+            color: #ebcd99;
+            font-size: 14px;
+
+        }
+
+        .hongbaoinfo p.hb_count {
+            font-size: 22px;
+            text-align: center;
+            color: #ebcd99;
+            height: 1rem;
+            line-height: 1rem;
+            margin-top: 5%;
+        }
+
+        .animated_div .kai {
+            display: block;
+            width: 95px;
+            height: 95px;
+            background: url("../images/kai.png")no-repeat;
+            background-size:  contain;
+            margin: 18% auto;
+        }
+
+         #rule {
+           width: 80%;
+            height: 80%;
+            background: url(../images/hbbg.png) no-repeat;
+            background-size: contain;
+            left: 50%;
+            margin: -50% 0 0 -40%;
+            position: fixed;
+            top: 50%;
+            z-index: 999;
+        }
+
+
+        #rule .close {
+            display: block;
+            margin: 10px 10px 0 12px;
+            line-height: 18px;
+        }
+
+        #rule .close a {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: url("../images/close1.png");
+            background-size: contain;
+            text-decoration: none;
+        }

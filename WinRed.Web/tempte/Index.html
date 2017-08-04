@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="红包扫雷">
+    <title>高速不跑单</title>
+
+    <link href="/content/css/weui.min.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/jquery-weui.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/style.css" rel="stylesheet" type="text/css">
+    
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/jquery.json.js" type="text/javascript"></script>
+    <script src="/scripts/jquery-weui.js" type="text/javascript"></script>
+    <script src="/Scripts/signalR/jquery.signalR-1.1.4.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+
+    <script src="/scripts/base/base.js" type="text/javascript"></script>
+    <script src="/scripts/home/index.js" type="text/javascript"></script>
+    <script src="/scripts/extention/jquery.common.msajax.js" type="text/javascript"></script>
+    
+    <script src="/Scripts/home/index.js?v=1"></script>
+    <script src="/Scripts/group/index.js"></script>
+
+
+    
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx3dc7fed192b9287e', // 必填，公众号的唯一标识
+            timestamp: '1501837408', // 必填，生成签名的时间戳
+            nonceStr: 'rt6HQ1dGeM3Hx88F', // 必填，生成签名的随机串
+            signature: '0d70683a55467b5393ef26a1119d51beafc97855', // 必填，签名，见附录1
+            jsApiList: [
+                'getLocation',
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'scanQRCode', 'openLocation'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+    
+
+
+<input type="hidden" value="/group" id="routeUrl"/>
+<input type="hidden" id="hidTotalPage" value="2"/>
+
+<div class="headeritem">
+    <div class="weui-flex">
+        <div class="weui-flex__item"><div class="placeholder" style="float:left"><img src="/content/images/moneyicon.png" /><span><label id="memberBalance">0.00</label></span></div></div>
+        <div class="weui-flex__item" onclick="gotoUrl('/member/cash')"><div class="placeholder"><img src="/content/images/exchange.png" /><span>兑换商城</span></div></div>
+        <div class="weui-flex__item" onclick="gotoUrl('/group/rule')"><div class="placeholder" style="float:right"><img src="/content/images/role.png" /><span>规则</span></div></div>
+    </div>
+</div>
+<div class="weui-search-bar" id="searchBar" style="padding-top: 50px;">
+    <form class="weui-search-bar__form">
+        <div class="weui-search-bar__box">
+            <i class="weui-icon-search"></i>
+            <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="" value="">
+            <a href="javascript:;" class="weui-icon-clear" id="searchClear"></a>
+        </div>
+        <label class="weui-search-bar__label" id="searchText" style="color: #fff;transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+            <i class="weui-icon-search" style="color: #fff;"></i>
+            <span>搜索群号</span>
+        </label>
+    </form>
+    <a href="javascript:;" class="weui-search-bar__cancel-btn" id="searchCancel" style="color: #fff">取消</a>
+</div>
+<div class="gameitem">
+    <div class="weui-flex">
+        <div class="weui-flex__item center">
+
+            <label class="item item-radio" onclick="gotoUrl('/group?sort=1')">
+                <input type="radio" name="paixu" value="1" checked=&quot;checked&quot;>
+                <div class="item-content">默认</div>
+            </label>
+        </div>
+        <div class="weui-flex__item center">
+
+            <label class="item item-radio" onclick="gotoUrl('/group?sort=2')">
+                <input type="radio" name="paixu" value="2" >
+                <div class="item-content">人气最旺</div>
+            </label>
+        </div>
+        <div class="weui-flex__item center">
+
+            <label class="item item-radio" onclick="gotoUrl('/group?sort=4')">
+                <input type="radio" name="paixu" value="2" >
+                <div class="item-content">参与的群</div>
+            </label>
+        </div>
+        <div class="weui-flex__item center">
+
+            <label class="item item-radio" onclick="gotoUrl('/group?sort=3')">
+                <input type="radio" name="paixu" value="2" >
+                <div class="item-content">最近组群</div>
+            </label>
+            
+        </div>
+        <div class="weui-flex__item center">
+            <select class="money-select" name="select1" onchange="changePrice(this)">
+                <option selected="" value="">发包金额</option>
+                    <option value="10" >10金币</option>
+                    <option value="20" >20金币</option>
+                    <option value="30" >30金币</option>
+                    <option value="50" >50金币</option>
+                    <option value="100" >100金币</option>
+                    <option value="200" >200金币</option>
+                    <option value="500" >500金币</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="wanfa">
+    <div class="weui-flex">
+        <div class="weui-flex__item">
+            <label class="item item-radio" onclick="gotoUrl('/group')">
+                <input type="radio" name="wanfa" value="1"  checked=&quot;checked&quot;>
+           
+                <div class="item-content">所有类型</div>
+            </label>
+        </div>
+        <div class="weui-flex__item">
+
+            <label class="item item-radio" onclick="gotoUrl('/group?type=1')">
+                <input type="radio" name="wanfa" value="1" >
+                <div class="item-content">可发可抢</div>
+            </label>
+        </div>
+        <div class="weui-flex__item">
+
+            <label class="item item-radio" onclick="gotoUrl('/group?type=2')">
+                <input type="radio" name="wanfa" value="1" >
+                <div class="item-content">发包禁抢</div>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="room_list" style="padding-bottom: 2.2rem;overflow: scroll;">
+    <ul id="list">
+        
+    <li>
+        <a href="/group/group/17">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10017</p>
+                    <p class="roomname">20扫雷激情与速</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：露露</p>
+                    <span class="onlinecount"><i>356人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1023">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10024</p>
+                    <p class="roomname">高速中~~</p>
+                        <p class="kfkq"><span>50金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：1081、占伟</p>
+                    <span class="onlinecount"><i>165人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/9">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10009</p>
+                    <p class="roomname">玩的来</p>
+                        <p class="kfkq"><span>10金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：燕子</p>
+                    <span class="onlinecount"><i>217人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1060">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10054</p>
+                    <p class="roomname">禁抢高速中</p>
+                        <p class="kfkq" style="background: url(/content/images/fabaojinqiang.png) no-repeat left;height: 18px;background-size: contain;margin-top: 8px;padding-right: 3px;"><span>30金币</span></p>
+                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：红红</p>
+                    <span class="onlinecount"><i>42人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1051">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10045</p>
+                    <p class="roomname">VIP10元扫雷</p>
+                        <p class="kfkq"><span>10金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：K.</p>
+                    <span class="onlinecount"><i>93人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1058">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10052</p>
+                    <p class="roomname">50禁抢有雷就赔</p>
+                        <p class="kfkq" style="background: url(/content/images/fabaojinqiang.png) no-repeat left;height: 18px;background-size: contain;margin-top: 8px;padding-right: 3px;"><span>50金币</span></p>
+                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：A啦少梦</p>
+                    <span class="onlinecount"><i>60人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1057">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10051</p>
+                    <p class="roomname">高倍禁抢</p>
+                        <p class="kfkq" style="background: url(/content/images/fabaojinqiang.png) no-repeat left;height: 18px;background-size: contain;margin-top: 8px;padding-right: 3px;"><span>20金币</span></p>
+                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：老罗</p>
+                    <span class="onlinecount"><i>44人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1061">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10055</p>
+                    <p class="roomname">🈲️禁抢，高倍数</p>
+                        <p class="kfkq" style="background: url(/content/images/fabaojinqiang.png) no-repeat left;height: 18px;background-size: contain;margin-top: 8px;padding-right: 3px;"><span>10金币</span></p>
+                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：@！</p>
+                    <span class="onlinecount"><i>36人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1062">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10056</p>
+                    <p class="roomname">来老铁</p>
+                        <p class="kfkq" style="background: url(/content/images/fabaojinqiang.png) no-repeat left;height: 18px;background-size: contain;margin-top: 8px;padding-right: 3px;"><span>20金币</span></p>
+                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：颜初</p>
+                    <span class="onlinecount"><i>17人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1045">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10039</p>
+                    <p class="roomname">高速  抢包</p>
+                        <p class="kfkq"><span>10金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：钟氏*^_^*浪子</p>
+                    <span class="onlinecount"><i>100人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1056">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10050</p>
+                    <p class="roomname">快点点点点点点点</p>
+                        <p class="kfkq"><span>10金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：绅郎，</p>
+                    <span class="onlinecount"><i>44人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1049">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10043</p>
+                    <p class="roomname">天真很浪漫</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：陈天真</p>
+                    <span class="onlinecount"><i>74人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1063">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10057</p>
+                    <p class="roomname">让你爽到爆</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：伟</p>
+                    <span class="onlinecount"><i>12人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1055">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10049</p>
+                    <p class="roomname">高速赚钱</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：钟氏*^_^*信念</p>
+                    <span class="onlinecount"><i>28人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/6">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10006</p>
+                    <p class="roomname">高速，高福利。</p>
+                        <p class="kfkq"><span>30金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：🎡幽梦</p>
+                    <span class="onlinecount"><i>298人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1034">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10030</p>
+                    <p class="roomname">扫雷开张</p>
+                        <p class="kfkq"><span>10金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：适可而止</p>
+                    <span class="onlinecount"><i>114人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/10">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10010</p>
+                    <p class="roomname">123</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：永恒的心</p>
+                    <span class="onlinecount"><i>107人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1048">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10042</p>
+                    <p class="roomname">见人红包群</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：见人</p>
+                    <span class="onlinecount"><i>60人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1039">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10034</p>
+                    <p class="roomname">高速通宵群</p>
+                        <p class="kfkq"><span>20金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：可乐猪</p>
+                    <span class="onlinecount"><i>93人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>    <li>
+        <a href="/group/group/1053">
+            <div class="room">
+                <div class="roominfo1">
+                    <p class="roomno">NO.10047</p>
+                    <p class="roomname">泪过无痕</p>
+                        <p class="kfkq"><span>30金币</span></p>                </div>
+                <div class="roominfo2">
+                    <p class="qunzhu">群主：泪过无痕</p>
+                    <span class="onlinecount"><i>45人</i></span>
+                </div>
+            </div>
+        </a>
+    </li>
+    </ul>
+</div>
+
+
+
+<div class="weui-tabbar" id="footer">
+    <a href="/" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="index"></i></div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/member/recharge" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon"><i class="addico"></i></div>
+        <p class="weui-tabbar__label">添加金币</p>
+    </a>
+
+    <a href="/group/newgroup" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="zuqunico"></i></div>
+        <p class="weui-tabbar__label">组群</p>
+    </a>
+    <a href="/member" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="centerico"></i></div>
+        <p class="weui-tabbar__label">个人中心</p>
+    </a>
+</div>
+</body>
+</html>

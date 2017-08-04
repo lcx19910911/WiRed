@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="红包扫雷">
+    <title>组高速群</title>
+
+    <link href="/content/css/weui.min.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/jquery-weui.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/style.css" rel="stylesheet" type="text/css">
+    
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/jquery.json.js" type="text/javascript"></script>
+    <script src="/scripts/jquery-weui.js" type="text/javascript"></script>
+    <script src="/Scripts/signalR/jquery.signalR-1.1.4.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+
+    <script src="/scripts/base/base.js" type="text/javascript"></script>
+    <script src="/scripts/home/index.js" type="text/javascript"></script>
+    <script src="/scripts/extention/jquery.common.msajax.js" type="text/javascript"></script>
+    
+    <script src="/Scripts/group/newGroup.js?v=1"></script>
+
+
+
+    
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx3dc7fed192b9287e', // 必填，公众号的唯一标识
+            timestamp: '1501838449', // 必填，生成签名的时间戳
+            nonceStr: 'SAe64peqPAsQaQmR', // 必填，生成签名的随机串
+            signature: '43dea19455272b94f9d14f9d83e1b829cfa70666', // 必填，签名，见附录1
+            jsApiList: [
+                'getLocation',
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'scanQRCode', 'openLocation'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group/newgroup?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group/newgroup?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group/newgroup?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group/newgroup?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+    
+
+<input type="hidden" value="5" id="autoTakePer" />
+<input type="hidden" value="0.5" id="groupPer" />
+<input type="hidden" value="1" id="minRate" />
+<input type="hidden" value="2" id="maxRate" />
+<div id="main">
+    <header class="bar bar-nav">
+        <h1 class="title">马上组群</h1>
+    </header>
+    <div class="usrbanner">
+        <div class="usrhead" style="clear:both;text-align:center"><img class="head" src="http://wx.qlogo.cn/mmopen/4IMhFM96LktZP26Lb9fG8tcsPNbfgAbeMOPCBhJVTia6X81AeibATBzkab7SlQPSBrpO48I2yhlD3iae0JAAmhfpAxW5yrsngTO/0"></div>
+        <p style="text-align: center;color:#FFF;height: 2rem;line-height: 2rem;">1459（ID:1459）</p>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">房间名称</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入不多于8个汉字" id="name" maxlength="8" />
+        </div>
+    </div>
+    <div class="weui-cells weui-cells_radio">
+        <div class="weui-cells__title titleleibie">游戏类别</div>
+        <label class="weui-cell weui-check__label" for="x11" style="">
+            <div class="weui-cell__bd ">
+                <p>可发可抢</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" class="weui-check" checked="checked" name="radio1" id="x11" value="1" />
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+        <label class="weui-cell weui-check__label" for="x12" style="">
+            <div class="weui-cell__bd">
+                <span>发包禁抢</span>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="radio" name="radio1" class="weui-check" id="x12" value="2" />
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+    </div>
+
+    <div class="weui-cells weui-cells_radio" id="autoTakeLabel">
+        <label class="weui-cell weui-check__label" for="autoTake" style="display: inline-block;">
+            <div class="weui-cell__bd ">
+                <p style="color:red">自动抢包(收取红包金额的5倍)</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="checkbox" class="weui-check" id="autoTake" name="autoTake">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+    </div>
+    <div class="weui-cells__title titleleibie">发包金额</div>
+    <div class="gameitem">
+        <ul class="weui-flex" style="display: inline-table;">
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="10">
+                        <div class="item-content">10金币</div>
+                    </label>
+                </li>
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="20">
+                        <div class="item-content">20金币</div>
+                    </label>
+                </li>
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="30">
+                        <div class="item-content">30金币</div>
+                    </label>
+                </li>
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="50">
+                        <div class="item-content">50金币</div>
+                    </label>
+                </li>
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="100">
+                        <div class="item-content">100金币</div>
+                    </label>
+                </li>
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="200">
+                        <div class="item-content">200金币</div>
+                    </label>
+                </li>
+                <li class="weui-flex__item center" style="min-width: 25%;display:inline;list-style-type:none; white-space: nowrap; float: left;">
+                    <label class="item item-radio">
+                        <input type="radio" name="price" value="1" data-price="500">
+                        <div class="item-content">500金币</div>
+                    </label>
+                </li>
+        </ul>
+    </div>
+
+    <div class="weui-cells">
+        <a class="weui-cell weui-cell_access" href="javascript:;" onclick="showSet()">
+            <div class="weui-cell__bd">
+                <p>赔率设置</p>
+            </div>
+            <div class="weui-cell__ft">
+            </div>
+        </a>
+        
+    </div>
+    <div class="kaifangbtn" style="margin-top: 35px; margin-bottom: 6rem;min-height: 6rem;overflow: scroll;">
+        <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #ffe2b1;margin: 10px;"><label id="payTitle">福利</label>保证金：<span id="authMoney">0</span>金币</a>
+        <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #ffe2b1;margin: 10px;">开房费用：<span id="subMoney">0</span>金币</a>
+        <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;" onclick="submit()">确认开房</a>
+    </div>
+</div>
+<div id="set" style="display: none;overflow: scroll;">
+
+    <div id="type1">
+        <header class="bar bar-nav">
+            <h1 class="title">可发可抢</h1>
+        </header>
+        <div class="weui-cells__title  mgt" style="padding: 6px 15px;color: #333;">福利设置</div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">顺子(倒顺)</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" placeholder="1.23,或者12.34连续数额" name="boon" type="text" data-boon="123">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label">豹&nbsp;子</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" placeholder="必须是三个一样或者四个数字一样" name="boon" type="text" data-boon="111">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">5.20</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="5.20" name="boon" data-boon="5.20">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">13.14</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="13.14" name="boon" data-boon="13.14">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">0.01</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="0.01" name="boon" data-boon="0.01">
+            </div>
+        </div>
+        <div class="weui-cells__title" style="padding: 6px 15px;color: #333;">踩雷赔率</div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">5包</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="5" name="pack" data-pack="5">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">6包</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="6" name="pack" data-pack="6">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">7包</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="7" name="pack" data-pack="7">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">8包</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="8" name="pack" data-pack="8">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">9包</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="9" name="pack" data-pack="9">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">10包</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="10" name="pack" data-pack="10">
+            </div>
+        </div>
+    </div>
+    <div id="type2" style="display: none;">
+        <header class="bar bar-nav">
+            <h1 class="title">发包禁抢</h1>
+        </header>
+        <div class="weui-cells__title" style="padding: 6px 15px;color: #333;">发包禁抢</div>
+        <div class="weui-cells__title" style="padding: 6px 15px;color: #333;">
+            5包
+        </div>
+    <div class="weui-cells weui-cells_radio">
+        <label class="weui-cell weui-check__label" for="no50" style="display: inline-block; width: 100%;">
+            <div class="weui-cell__bd ">
+                <p style="color:red">是否禁0</p>
+            </div>
+            <div class="weui-cell__ft">
+                <input type="checkbox" class="weui-check" id="no50" name="no50">
+                <span class="weui-icon-checked"></span>
+            </div>
+        </label>
+    </div>
+        <table style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="weui-cells weui-cells_radio">
+                        <label class="weui-cell weui-check__label" for="one5" style="display: inline-block; width: 100%;" onclick="showOne5Rate()">
+                            <div class="weui-cell__bd ">
+                                <p style="color:red">单雷</p>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <input type="checkbox" class="weui-check" id="one5" name="pack5" data-type="1">
+                                <span class="weui-icon-checked"></span>
+                            </div>
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <div class="weui-cells weui-cells_radio">
+                        <label class="weui-cell weui-check__label" for="two5" style="display: inline-block; width: 100%;" onclick="showTwo5Rate()">
+                            <div class="weui-cell__bd ">
+                                <p style="color:red">多雷</p>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <input type="checkbox" class="weui-check" id="two5" name="pack5" data-type="2">
+                                <span class="weui-icon-checked"></span>
+                            </div>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="one5rate" style="display: none;">
+
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中1个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="1">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中2个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="2">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中3个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="3">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中4个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="4">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中5个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="5">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="two5rate" style="display: none;">
+
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">2中2</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="2">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">3中3</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="3">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">4中4</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="4">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">5中5</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="5">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="two6" style="display: inline-block;" onclick="showTwo6Rate()">
+                <div class="weui-cell__bd ">
+                    <p style="color:red">5包不中</p>
+                </div>
+            </label>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">3不中</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="4" id="no3take5">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">4不中</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="5" id="no4take5">
+            </div>
+        </div>
+        
+
+        <div class="weui-cells__title" style="padding: 6px 15px;color: #333;">6包</div>
+        <div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="no60" style="display: inline-block; width: 100%;">
+                <div class="weui-cell__bd ">
+                    <p style="color:red">是否禁0</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <input type="checkbox" class="weui-check" id="no60" name="no60">
+                    <span class="weui-icon-checked"></span>
+                </div>
+            </label>
+        </div>
+        <table style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="weui-cells weui-cells_radio">
+                        <label class="weui-cell weui-check__label" for="one6" style="display: inline-block; width: 100%;" onclick="showOne6Rate()">
+                            <div class="weui-cell__bd ">
+                                <p style="color:red">单雷</p>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <input type="checkbox" class="weui-check" id="one6" name="pack6" data-type="1">
+                                <span class="weui-icon-checked"></span>
+                            </div>
+                        </label>
+                    </div>
+                </td>
+                <td>
+                    <div class="weui-cells weui-cells_radio">
+
+                        <label class="weui-cell weui-check__label" for="two6" style="display: inline-block;" onclick="showTwo6Rate()">
+                            <div class="weui-cell__bd ">
+                                <p style="color:red">多雷</p>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <input type="checkbox" class="weui-check" id="two6" name="pack6" data-type="1">
+                                <span class="weui-icon-checked"></span>
+                            </div>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="one6rate" style="display: none;">
+
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中1个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="1">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中2个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="2">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中3个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="3">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中4个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="4">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中5个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="5">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">中6个雷</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="6">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="two6rate" style="display: none;">
+
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">2中2</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="2">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">3中3</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="3">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">4中4</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="4">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">5中5</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="5">
+                            </div>
+                        </div>
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd">
+                                <label class="weui-label">6中6</label>
+                            </div>
+                            <div class="weui-cell__bd">
+                                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="6">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="weui-cells weui-cells_radio">
+            <label class="weui-cell weui-check__label" for="two6" style="display: inline-block;" onclick="showTwo6Rate()">
+                <div class="weui-cell__bd ">
+                    <p style="color:red">6包不中</p>
+                </div>
+            </label>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">3不中</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="4" id="no3take6">
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd">
+                <label class="weui-label">4不中</label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input boon" type="text" placeholder="倍数" name="sweep" data-rate="5" id="no4take6">
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="kaifangbtn" style="margin-top: 35px; margin-bottom: 4rem;">
+        <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;" onclick="setGroupConfig()">确&nbsp;&nbsp;认</a>
+        <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;" onclick="closeGroupConfig()">取&nbsp;&nbsp;消</a>
+    </div>
+</div>
+
+
+<div class="weui-tabbar" id="footer">
+    <a href="/" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="index"></i></div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/member/recharge" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon"><i class="addico"></i></div>
+        <p class="weui-tabbar__label">添加金币</p>
+    </a>
+
+    <a href="/group/newgroup" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="zuqunico"></i></div>
+        <p class="weui-tabbar__label">组群</p>
+    </a>
+    <a href="/member" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="centerico"></i></div>
+        <p class="weui-tabbar__label">个人中心</p>
+    </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,1525 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="红包扫雷">
+    <title>A啦少梦的高速群</title>
+
+    <link href="/content/css/weui.min.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/jquery-weui.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/style.css" rel="stylesheet" type="text/css">
+    
+    <link href="/Content/css/group.css" rel="stylesheet" />
+
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/jquery.json.js" type="text/javascript"></script>
+    <script src="/scripts/jquery-weui.js" type="text/javascript"></script>
+    <script src="/Scripts/signalR/jquery.signalR-1.1.4.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+
+    <script src="/scripts/base/base.js" type="text/javascript"></script>
+    <script src="/scripts/home/index.js" type="text/javascript"></script>
+    <script src="/scripts/extention/jquery.common.msajax.js" type="text/javascript"></script>
+    
+    <script src="/Scripts/home/index.js?v=4"></script>
+    <script src="/Scripts/group/group.js?v=4"></script>
+
+
+    
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx3dc7fed192b9287e', // 必填，公众号的唯一标识
+            timestamp: '1501838891', // 必填，生成签名的时间戳
+            nonceStr: 's0B0JauNsPvtf76l', // 必填，生成签名的随机串
+            signature: 'bb540d7e22efa7e5857370454a1657e3ba716e5c', // 必填，签名，见附录1
+            jsApiList: [
+                'getLocation',
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'scanQRCode', 'openLocation'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: 'A啦少梦的高速群', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group/group/1058?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group/group/1058?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: 'A啦少梦的高速群', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/group/group/1058?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/group/group/1058?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+    
+
+<input type="hidden" value="24" id="totalPage" />
+<input type="hidden" value="1058" id="groupId" />
+<input type="hidden" value="1459" id="hidMemberId" />
+<div id="main">
+    <div id="noMember" style="display:none;">
+        <header class="bar bar-nav">
+            <h1 class="title">开房成功</h1>
+        </header>
+        <div class="usrbanner" style="background-color: #f1f5f7; margin-top: 4rem">
+            <div class="usrhead" style="clear: both; text-align: center">
+                <img class="head" src="http://wx.qlogo.cn/mmopen/4IMhFM96LktZP26Lb9fG8tcsPNbfgAbeMOPCBhJVTia6X81AeibATBzkab7SlQPSBrpO48I2yhlD3iae0JAAmhfpAxW5yrsngTO/0">
+            </div>
+            <p style="text-align: center; color: #eb5c4b; height: 2rem; line-height: 2rem;">刘城熙（ID:1459）</p>
+        </div>
+        <p class="kaifangtip" style="margin-top: 35px">
+            恭喜您开房成功，马上邀请好友扫雷...
+        </p>
+
+        <div class="duihuan" style="margin-top: 35px">
+            <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;" onclick="showRoom()">进入房间</a>
+        </div>
+    </div>
+    <div id="hasMember" style="">
+        <header class="bar bar-nav">
+            <h1 class="title">10052:50.00金币</h1>
+            <a href="javascript:;" class="icon pull-left"><span>￥<label id="memberBalance">0.00</label></span></a>
+            <a href="javascript:;" class="icon pull-right">
+                <span class="ol">在线人数：</span><i id="memberCount">64</i>
+            </a>
+        </header>
+        <div class="roomtitle" style="top: 2.2rem;position: fixed;width: 100%; z-index: 999;">
+            <p class="notice"></p><span class="titl" id="notice" style="max-width: 70%;">群主公告：抢！抢！抢！</span>
+            <div class="guizeshuoming" style="float: right;padding-right: 10px; width: 30%;">
+                <img src="/content/images/role.png" />
+                <a href="javascript:;" onclick="$('#rule').show()"><span>规则说明</span></a>
+            </div>
+        </div>
+        <div id="chatBox" style="padding-top: 4rem; padding-bottom: 6rem;">
+    <div class="weui-flex mg" id="pack11648" onclick="showBg(11648)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/ic6ibtXX9Z11Fbb7Q86ugU5kmgKTNa9aWoonmmW1PGibAn0KicM9wHicqyhRayag1tKkJQMaSP9UfKjAyEUkLJeR6PzkF6rCOZFiaB/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/ic6ibtXX9Z11Fbb7Q86ugU5kmgKTNa9aWoonmmW1PGibAn0KicM9wHicqyhRayag1tKkJQMaSP9UfKjAyEUkLJeR6PzkF6rCOZFiaB/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11648">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">单雷</p>
+                            <p class="leihao">雷号：<span>2</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了2.56
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了18.20
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了12.84
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了7.34
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了6.65
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了2.41
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11663" onclick="showBg(11663)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11663">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">单雷</p>
+                            <p class="leihao">雷号：<span>7</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了6.34
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了6.43
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了14.83
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了2.01
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了11.12
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了9.27
+        </span>
+        </div>
+   <div class="sectioninfo">
+        <span class="section">
+            <span>群主支付记住我就好的<label style="color:#ff6633">踩雷赔包75.00</label>金币</span>
+        </span>
+    </div>     <div class="weui-flex mg" id="pack11665" onclick="showBg(11665)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11665">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>0,1,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了13.53
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了13.91
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了11.10
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了6.82
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了0.43
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了4.21
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11666" onclick="showBg(11666)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11666">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>0,1,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了11.69
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了1.42
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了6.54
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了9.22
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了7.38
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了13.75
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11667" onclick="showBg(11667)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11667">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>0,1,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了10.38
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了0.09
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了9.10
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了16.67
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了13.23
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了0.53
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11668" onclick="showBg(11668)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11668">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>2,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了8.50
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了16.07
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了6.32
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了12.27
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了4.57
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了2.27
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11669" onclick="showBg(11669)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11669">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>2,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了2.77
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了16.70
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了12.14
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了3.23
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了7.21
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了7.95
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11670" onclick="showBg(11670)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11670">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>2,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了14.46
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了7.94
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了10.31
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了0.41
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了7.06
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了9.82
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11671" onclick="showBg(11671)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11671">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>2,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了5.25
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了11.92
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了5.00
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了0.93
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了11.86
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了15.04
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11673" onclick="showBg(11673)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11673">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>2,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了10.34
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了10.98
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了9.47
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了10.16
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了4.87
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了4.18
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11674" onclick="showBg(11674)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/0nn3FBrD9a21icoQIW8Yj3SMgWldRy5y2r4x9Xaz99PMF7paaZwEX5I3kPsE7THujYySLujwxx3MgTnge8rIm1g/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/0nn3FBrD9a21icoQIW8Yj3SMgWldRy5y2r4x9Xaz99PMF7paaZwEX5I3kPsE7THujYySLujwxx3MgTnge8rIm1g/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">5包<span style="display: none;">/剩<label id="p11674">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">单雷</p>
+                            <p class="leihao">雷号：<span>5</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了16.58
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了7.21
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了4.52
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了3.77
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了17.92
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11677" onclick="showBg(11677)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11677">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>2,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了2.20
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了12.09
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了5.61
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了5.82
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了6.36
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了17.92
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11678" onclick="showBg(11678)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11678">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">三不中</p>
+                            <p class="leihao">雷号：<span>0,3,4</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了2.00
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了10.47
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了15.12
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了9.99
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了9.00
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了3.42
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11680" onclick="showBg(11680)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11680">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">多雷</p>
+                            <p class="leihao">雷号：<span>2,5,8</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了13.11
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了5.02
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了10.54
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了9.79
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了4.15
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了7.39
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11681" onclick="showBg(11681)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11681">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">多雷</p>
+                            <p class="leihao">雷号：<span>1,2,5</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了7.73
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了0.79
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了2.48
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了13.37
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了11.82
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了13.81
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11682" onclick="showBg(11682)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11682">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">多雷</p>
+                            <p class="leihao">雷号：<span>1,2,5</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了2.99
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了16.57
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了14.93
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了10.18
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了0.07
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了5.26
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11683" onclick="showBg(11683)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11683">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">多雷</p>
+                            <p class="leihao">雷号：<span>1,5</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了9.33
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了4.31
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了13.35
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了14.90
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了6.28
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了1.83
+        </span>
+        </div>
+   <div class="sectioninfo">
+        <span class="section">
+            <span>群主支付记住我就好的<label style="color:#ff6633">踩雷赔包200.00</label>金币</span>
+        </span>
+    </div>     <div class="weui-flex mg" id="pack11684" onclick="showBg(11684)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11684">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">多雷</p>
+                            <p class="leihao">雷号：<span>1,5</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了1.09
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了13.17
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了10.57
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了10.88
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了13.85
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了0.44
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11685" onclick="showBg(11685)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11685">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">多雷</p>
+                            <p class="leihao">雷号：<span>5,9</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了10.05
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了0.40
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了12.06
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了11.12
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了4.47
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了11.90
+        </span>
+        </div>
+    <div class="weui-flex mg" id="pack11686" onclick="showBg(11686)">
+            <div class="usericon">
+                <img class="weui-media-box__thumb" src="http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0" alt="">
+            </div>
+            <div class="weui-flex__item">
+                <a href="javascript:;">
+                    <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">http://wx.qlogo.cn/mmopen/TdUu6bkiakLeAVBLKm6etaOuCSP8JgqMTeaNp8hO8MGk0bTrPqiaMJ4kkBAJN2Pj6iaicibTsXetMbRvkUoFvR9Qznicg8ccChLjdD/0</h5>
+                    <div class="hbdialog bg1">
+                        <div class="hbinfo1">
+                            <p class="notification-handle-bar">50金币</p><span style="display: inline-block;min-width: 50px;">6包<span style="display: none;">/剩<label id="p11686">0</label>包</span></span>
+                            <p class="yxhb">游戏红包</p>
+                        </div>
+                        <div class="hbinfo2">
+                            <p class="danlei">单雷</p>
+                            <p class="leihao">雷号：<span>2</span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+    </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>1号抱包手</span>抢到了5.89
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>2号抱包手</span>抢到了1.52
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>3号抱包手</span>抢到了2.60
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>4号抱包手</span>抢到了7.65
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>5号抱包手</span>抢到了10.36
+        </span>
+        </div>
+        <div class="sectioninfo">
+            <span class="section">
+                <span>6号抱包手</span>抢到了21.98
+        </span>
+        </div>
+   <div class="sectioninfo">
+        <span class="section">
+            <span>群主支付记住我就好的<label style="color:#ff6633">踩雷赔包75.00</label>金币</span>
+        </span>
+    </div>         </div>
+            <div class="fabaobtn gamebtns" style=" bottom: 2.5rem;">
+                <a href="javascript:;" class="weui-btn" style="background: #e64340; color: #fff; margin: 10px;" onclick="showPage('redpack')">发&nbsp;红&nbsp;包</a>
+            </div>
+    </div>
+</div>
+                <div id="rule" style="background: rgb(255, 255, 255); height: 40%; overflow: scroll;">
+
+                    <div class="close">
+                        <a href="javascript:;" onclick="hideRule()" style="background: url(/content/images/close2.png) no-repeat;"></a>
+                    </div>
+
+                    <div id="shuoming" style="display: block; height: 80%; overflow: scroll;">
+                        <div class="weui-cells__title" style="background-color: #fff; margin: 0; color: #333;">赔率说明(5包禁0)</div>
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd ">
+                                    <p>5包单雷：</p>
+                                    <p>
+中1个雷--2.00倍中2个雷--3.00倍中3个雷--6.00倍中4个雷--12.00倍中5个雷--20.00倍                                    </p>
+                                </div>
+                            </div> 
+                                                    <div class="weui-cell">
+                                <div class="weui-cell__bd ">
+                                    <p>5包多雷：</p>
+                                    <p>
+2中2--5.00倍3中3--15.00倍4中4--25.00倍5中5--50.00倍                                    </p>
+                                </div>
+                            </div>
+                                                    <div class="weui-cell">
+
+                                <div class="weui-cell__bd ">
+                                    <p>5包3不中：</p>
+                                    <p>
+三不中--4.00倍                                    </p>
+                                </div>
+                            </div>                                                    <div class="weui-cell">
+
+                                <div class="weui-cell__bd ">
+                                    <p>5包4不中：</p>
+                                    <p>
+四不中--8.00倍                                    </p>
+                                </div>
+                            </div>
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd ">
+                                    <p>6包单雷：</p>
+                                    <p>
+中1个雷--1.50倍中2个雷--3.00倍中3个雷--4.50倍中4个雷--6.00倍中5个雷--9.00倍中6个雷--20.00倍                                    </p>
+                                </div>
+                            </div>
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd ">
+                                    <p>6包多雷：</p>
+                                    <p>
+2中2--4.00倍3中3--12.00倍4中4--20.00倍5中5--40.00倍                                    </p>
+                                </div>
+                            </div>
+                            <div class="weui-cell">
+                                <div class="weui-cell__bd ">
+                                    <p>6包3不中：</p>
+                                    <p>
+三不中--6.00倍                                    </p>
+                                </div>
+                            </div>
+                            <div class="weui-cell">
+
+                                <div class="weui-cell__bd ">
+                                    <p>6包4不中：</p>
+                                    <p>
+四不中--12.00倍                                    </p>
+                                </div>
+                            </div>
+                    </div>
+                </div><div id="fullbg" style="display: none;"></div>
+<div id="dialog" style="display: none;position: fixed;">
+</div>
+<div id="log" style="display: none;"></div>
+
+<div id="myPack" style="display: none;">
+    <div class="weui-flex mg" id="pack{7}" onclick="showBg({7})">
+    <div class=" weui-flex__item">
+        <a href="javascript:;">
+            <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">{8}</h5>
+            <div class="hbdialog bg2">
+                <div class="hbinfo1">
+                    <p class="notification-handle-bar">{2}金币</p><span>{4}包/剩<label id="p{7}">{4}</label>包</span>
+                    <p class="yxhb" title="{1}">游戏红包</p>
+                </div>
+                <div class="hbinfo2">
+                    <p class="danlei">{3}</p>
+                    <p class="leihao">雷号：<span>{5}</span></p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="usericon">
+        <img class="weui-media-box__thumb" src="{0}" alt="">
+    </div>
+</div>
+</div>
+<div id="otherPack" style="display: none;">
+    <div class="weui-flex mg" id="pack{7}" onclick="showBg({7})">
+        <div class="usericon">
+            <img class="weui-media-box__thumb" src="{0}" alt="">
+        </div>
+
+        <div class="weui-flex__item">
+            <a href="javascript:;">
+                <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">{8}</h5>
+                <div class="hbdialog bg1">
+                    <div class="hbinfo1">
+                        <p class="notification-handle-bar">{2}金币</p><span>{4}包/剩<label id="p{7}">{4}</label>包</span>
+                        <p class="yxhb" title="{1}">游戏红包</p>
+                    </div>
+                    <div class="hbinfo2">
+                        <p class="danlei">{3}</p>
+                        <p class="leihao">雷号：<span>{5}</span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="takePackInfo" style="display: none;">
+    <div class="sectioninfo">
+        <span class="section">
+            {0}
+        </span>
+    </div>
+</div>
+
+
+<div id="myPack1" style="display: none;">
+    <div class="weui-flex mg" id="pack{7}" onclick="showBg({7})">
+        <div class=" weui-flex__item">
+            <a href="javascript:;">
+                <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">{8}</h5>
+                <div class="hbdialog bg2">
+                    <div class="hbinfo1">
+                        <p class="notification-handle-bar">{2}金币</p><span style="display: inline-block;min-width: 50px;">{4}包<label style="display: none;">/剩<label id="p{7}">{4}</label>包</label></span>
+                        <p class="yxhb" title="{1}">游戏红包</p>
+                    </div>
+                    <div class="hbinfo2">
+                        <p class="danlei">{3}</p>
+                        <p class="leihao">雷号：<span>{5}</span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="usericon">
+            <img class="weui-media-box__thumb" src="{0}" alt="">
+        </div>
+    </div>
+</div>
+<div id="otherPack1" style="display: none;">
+    <div class="weui-flex mg" id="pack{7}" onclick="showBg({7})">
+        <div class="usericon">
+            <img class="weui-media-box__thumb" src="{0}" alt="">
+        </div>
+
+        <div class="weui-flex__item">
+            <a href="javascript:;">
+                <h5 class="weui-media-box__title" style="color: #9a9999; font-size: .7rem; padding-left: 3px; display: none;">{8}</h5>
+                <div class="hbdialog bg1">
+                    <div class="hbinfo1">
+                        <p class="notification-handle-bar">{2}金币</p><span style="display: inline-block;min-width: 50px;">{4}包<label style="display: none;">/剩<label id="p{7}">{4}</label>包</label></span>
+                        <p class="yxhb" title="{1}">游戏红包</p>
+                    </div>
+                    <div class="hbinfo2">
+                        <p class="danlei">{3}</p>
+                        <p class="leihao">雷号：<span>{5}</span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="redpack" style="display: none;">    <header class="bar bar-nav">
+        <h1 class="title">5包50.00金币禁抢</h1>
+    </header>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>设置雷号</p>
+        </div>
+        <div class="weui-cell__ft">设置2-5个雷号</div>
+    </div>
+    <div class="figure-item_five">
+        <div class="game-item">
+            <div class="list">
+                    <div class="weui-cells__title" style="padding-left: 15px">5包玩法(禁0)</div>
+                    <table>
+                        <tr>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType15" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">单雷</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType15" name="pack" data-type="1" data-sweep="1" data-pack="5" data-no0="1" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType25" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">多雷</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType25" name="pack" data-type="2" data-sweep="5" data-pack="5" data-no0="1" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType35" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">三不中</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType35" name="pack" data-type="3" data-sweep="3" data-pack="5" data-no0="1" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType45" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">四不中</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType45" name="pack" data-type="4" data-sweep="4" data-pack="5" data-no0="1" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                        </tr>
+                    </table>
+                    <div class="weui-cells__title" style="padding-left: 15px">6包玩法</div>
+                    <table>
+                        <tr>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType16" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">单雷</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType16" name="pack" data-type="1" data-sweep="1" data-pack="6" data-no0="0" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType26" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">多雷</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType26" name="pack" data-type="2" data-sweep="6" data-pack="6" data-no0="0" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType36" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">三不中</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType36" name="pack" data-type="3" data-sweep="3" data-pack="6" data-no0="0" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="weui-cells weui-cells_radio">
+                                        <label class="weui-cell weui-check__label" for="playType46" style="display: inline-block; width: 100%;">
+                                            <div class="weui-cell__bd ">
+                                                <p style="color:red">四不中</p>
+                                            </div>
+                                            <div class="weui-cell__ft">
+                                                <input type="radio" class="weui-check" id="playType46" name="pack" data-type="4" data-sweep="4" data-pack="6" data-no0="0" onchange="checkNoNum()">
+                                                <span class="weui-icon-checked"></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+        <div class="num">
+                <label class="item item-checkbox" id="sweepNum0">
+                    <input type="checkbox" name="sweep" value="0" data-sweep="0" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">0</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum1">
+                    <input type="checkbox" name="sweep" value="1" data-sweep="1" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">1</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum2">
+                    <input type="checkbox" name="sweep" value="2" data-sweep="2" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">2</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum3">
+                    <input type="checkbox" name="sweep" value="3" data-sweep="3" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">3</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum4">
+                    <input type="checkbox" name="sweep" value="4" data-sweep="4" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">4</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum5">
+                    <input type="checkbox" name="sweep" value="5" data-sweep="5" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">5</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum6">
+                    <input type="checkbox" name="sweep" value="6" data-sweep="6" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">6</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum7">
+                    <input type="checkbox" name="sweep" value="7" data-sweep="7" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">7</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum8">
+                    <input type="checkbox" name="sweep" value="8" data-sweep="8" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">8</div>
+                </label>
+                <label class="item item-checkbox" id="sweepNum9">
+                    <input type="checkbox" name="sweep" value="9" data-sweep="9" onchange="checkSweepNoTake(this)">
+                    <div class="item-num">9</div>
+                </label>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>金币金额：50.00金币</p>
+            </div>
+        </div>
+        <div class="kaifangbtn" style="margin-top: 35px; margin-bottom: 4rem;">
+            <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;" onclick="sendPack()">确认发包</a>
+            <a href="javascript:;" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;" onclick="showPage('main')">取消</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="weui-tabbar" id="footer">
+    <a href="/" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="index"></i></div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/member/recharge" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon"><i class="addico"></i></div>
+        <p class="weui-tabbar__label">添加金币</p>
+    </a>
+
+    <a href="/group/newgroup" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="zuqunico"></i></div>
+        <p class="weui-tabbar__label">组群</p>
+    </a>
+    <a href="/member" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="centerico"></i></div>
+        <p class="weui-tabbar__label">个人中心</p>
+    </a>
+</div>
+</body>
+</html>

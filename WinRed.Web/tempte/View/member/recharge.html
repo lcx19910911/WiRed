@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="红包扫雷">
+    <title>充值</title>
+
+    <link href="/content/css/weui.min.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/jquery-weui.css" rel="stylesheet" type="text/css">
+    <link href="/content/css/style.css" rel="stylesheet" type="text/css">
+    
+    <style type="text/css">
+        body {
+            background-color: #f1f5f7;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/scripts/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/scripts/jquery.json.js" type="text/javascript"></script>
+    <script src="/scripts/jquery-weui.js" type="text/javascript"></script>
+    <script src="/Scripts/signalR/jquery.signalR-1.1.4.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+
+    <script src="/scripts/base/base.js" type="text/javascript"></script>
+    <script src="/scripts/home/index.js" type="text/javascript"></script>
+    <script src="/scripts/extention/jquery.common.msajax.js" type="text/javascript"></script>
+    
+    <script>
+        function submit() {
+            $("#submit").attr("disabled", true);
+            var type = $("#type").find(".sel").data('type');
+            if (type == undefined || type.length <= 0) {
+                $.alert("请选择充值金额");
+                $("#submit").attr("disabled", false);
+                return;
+            } var groupId = $("#hidGroupId").val();
+            $.Common.ajaxRequest('/member/addrecharge',
+                { price: type ,groupId:groupId},
+                'JSON',
+                function (e) {
+                    $("#submit").attr("disabled", false);
+                    $.alert(e.message);
+                    if (e.status) { window.location = e.pageUrl; }
+                },true);
+        }
+
+        function checkType(obj) {
+            $(obj).parent().find(".price").removeClass("sel");
+            $(obj).addClass("sel");
+
+        }
+
+    </script>
+
+
+    
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx3dc7fed192b9287e', // 必填，公众号的唯一标识
+            timestamp: '1501838297', // 必填，生成签名的时间戳
+            nonceStr: 'WrANqdxv3jIozlOn', // 必填，生成签名的随机串
+            signature: '1187d56a334b89c29f2f425c178243fd4db33578', // 必填，签名，见附录1
+            jsApiList: [
+                'getLocation',
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'scanQRCode', 'openLocation'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            wx.onMenuShareTimeline({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/member/recharge?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/member/recharge?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '高速不跑单', // 分享标题
+                desc: '高速不跑单', // 分享标题
+                link: 'http://hb.ibangzx.com/member/recharge?memberid=1459', // 分享链接
+                imgUrl: 'http://hb01.ibangzx.com/content/images/share.png', // 分享图标
+                success: function () {
+                    try {
+                        if (shareCallBack) {
+                            shareCallBack('http://hb.ibangzx.com/member/recharge?memberid=1459');
+                        }
+                    } catch (e) {
+
+                    }
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    $.toast("分享取消", 'cancel');
+                }
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+
+    
+
+
+<input type="hidden" value="0" id="hidGroupId"/>
+<header class="bar bar-nav">
+    <a href="/group" class="icon pull-left hb_back"><span>更多充值</span></a>
+</header>
+<div class="content-item">
+    <ul class="renews" id="type">
+        <li class="price" data-type="20" onclick="checkType(this)">
+            <span>20元=20金币</span>
+        </li>
+        <li class="price" data-type="50" onclick="checkType(this)">
+            <span>50元=50金币</span>
+        </li>
+        <li class="price" data-type="100" onclick="checkType(this)">
+            <span>100元=100金币</span>
+        </li>
+        <li class="price" data-type="200" onclick="checkType(this)">
+            <span>200元=200金币</span>
+        </li>
+        <li class="price" data-type="500" onclick="checkType(this)">
+            <span>500元=500金币</span>
+        </li>
+        <li class="price" data-type="1000" onclick="checkType(this)">
+            <span>1000元=1000金币</span>
+        </li>
+</ul>
+</div>
+<div class="kaifangbtn" style="margin-top: 35px; margin-bottom: 4rem;">
+    <a href="javascript:;" onclick="submit()" id="submit" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;">确认充值</a>
+</div>
+
+<div class="weui-tabbar" id="footer">
+    <a href="/" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="index"></i></div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/member/recharge" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon"><i class="addico"></i></div>
+        <p class="weui-tabbar__label">添加金币</p>
+    </a>
+
+    <a href="/group/newgroup" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="zuqunico"></i></div>
+        <p class="weui-tabbar__label">组群</p>
+    </a>
+    <a href="/member" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="centerico"></i></div>
+        <p class="weui-tabbar__label">个人中心</p>
+    </a>
+</div>
+</body>
+</html>
