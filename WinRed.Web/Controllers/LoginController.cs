@@ -12,6 +12,7 @@ using WinRed.IService;
 using WinRed.Core;
 using WinRed.Core.Extensions;
 using WinRed.Core.Web;
+using WinRed.Model;
 
 namespace WinRed.Web.Controllers
 {
@@ -27,9 +28,13 @@ namespace WinRed.Web.Controllers
 
         
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Index(int isadmin=0)
         {
-            if (Params.IsUseWechat)
+            if (isadmin == 1)
+            {
+                return View();
+            }
+            else if(Params.IsUseWechat)
             {
                 if (Request.UserAgent.IsNotNullOrEmpty() && Request.UserAgent.ToLower().Contains("micromessenger"))
                 {
@@ -38,7 +43,7 @@ namespace WinRed.Web.Controllers
                 return View();
             }
             else
-                return RedirectToAction("Register", "User");
+                return RedirectToAction("Register", "Login");
         }
 
 
@@ -132,6 +137,34 @@ namespace WinRed.Web.Controllers
         }
 
 
+
+        public ActionResult Register(string id)
+        {
+            var model = IUserService.Find(id);
+            if (model == null)
+                model = new User();
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult Register(User model)
+        {
+
+            ModelState.Remove("ID");
+            ModelState.Remove("CreatedTime");
+            ModelState.Remove("IsDelete");
+            ModelState.Remove("Password");
+            if (ModelState.IsValid)
+            {
+                var result = IUserService.Register(model);
+                return JResult(result);
+            }
+            else
+            {
+                return ParamsErrorJResult(ModelState);
+            }
+        }
 
         /// <summary>
         /// 登录提交

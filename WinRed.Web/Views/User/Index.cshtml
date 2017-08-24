@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "个人中心";
+}
+
+
+
+<header class="bar bar-nav">
+    <a href="/group" class="icon pull-left hb_back"><span>个人中心</span></a>
+</header>
+<div class="usrbanner">
+    <div class="usrhead" style="clear:both;text-align:center"><img class="head" src="http://wx.qlogo.cn/mmopen/4IMhFM96LktZP26Lb9fG8tcsPNbfgAbeMOPCBhJVTia6X81AeibATBzkab7SlQPSBrpO48I2yhlD3iae0JAAmhfpAxW5yrsngTO/0"></div>
+    <p style="text-align: center;color:#FFF;height: 2rem;line-height: 2rem;">刘城熙（ID:1459）</p>
+</div>
+<div class="weui-cells ">
+    <a class="weui-cell weui-cell_access" href="/member/accountlog">
+        <div class="weui-cell__bd">
+            <p>我的账户</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+</div>
+<div class="weui-cells" style="margin-top: .5rem">
+    <a class="weui-cell weui-cell_access" href="/member/membergroup">
+        <div class="weui-cell__bd">
+            <p>我的组局</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="/member/memberredpack">
+        <div class="weui-cell__bd">
+            <p>我的红包</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="javascript:;" onclick="$('#service').show()">
+        <div class="weui-cell__bd">
+            <p>联系客服</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+</div>
+
+<div class="weui-cells" style="margin-top: .5rem">
+    <a class="weui-cell weui-cell_access" href="/member/rechargelog">
+        <div class="weui-cell__bd">
+            <p>我的充值</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="/member/cashlog">
+        <div class="weui-cell__bd">
+            <p>我的提现</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+</div>
+<div class="weui-cells " style="margin-top: .5rem" onclick="$('#wechat').show()">
+    <a class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+            <p>关注公众号</p>
+        </div>
+        <div class="weui-cell__ft">
+        </div>
+    </a>
+</div>
+<div id="service" class="dialog" style="display: block; background: rgb(255, 255, 255); overflow: scroll; display: none;">
+    <div class="close"><a href="javascript:;" onclick="$('#service').hide()" style="background: url(/content/images/close2.png) no-repeat;"></a></div>
+
+    <div id="shuoming" style="display: block; height: 80%; overflow: scroll;">
+        <img src="http://hbh.ibangzx.com/attached/image/7752e58d-7f7b-4777-a37a-c8a943bdd282.jpg" style="width: 100%;" />
+    </div>
+</div>
+
+<div id="wechat" class="dialog" style="display: block; background: rgb(255, 255, 255); overflow: scroll; display: none;">
+    <div class="close"><a href="javascript:;" onclick="$('#wechat').hide()" style="background: url(/content/images/close2.png) no-repeat;"></a></div>
+
+    <div id="shuoming" style="display: block; height: 80%; overflow: scroll;">
+        <img src="http://hbh.ibangzx.com/attached/image/23f69bcd-3c21-4b9b-9988-2a810ea8fc54.jpg" style="width: 100%;" />
+    </div>
+</div>
+

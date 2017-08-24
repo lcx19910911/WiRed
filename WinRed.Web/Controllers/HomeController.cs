@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using WinRed.IService;
 using WinRed.Model;
+using WinRed.Web.Filters;
 
 namespace WinRed.Web.Controllers
 {
+    [LoginFilter]
     public class HomeController : BaseController
     {
         public IUserService IUserService;
