@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using WinRed.IService;
 using WinRed.Model;
+using WinRed.Web.Filters;
 
 namespace WinRed.Web.Controllers
 {
+    [LoginFilter]
     public class UserController : BaseController
     {
         public IUserService IUserService;
@@ -21,33 +23,18 @@ namespace WinRed.Web.Controllers
             this.IRechargeService = _IRechargeService;
             this.IWithdrawalsService = _IWithdrawalsService;
         }
-        
-        public ActionResult Register(string id)
+
+        public ActionResult Index()
         {
-            var model = IUserService.Find(id);
-            if(model==null)
-                model=new User();
-            return View(model);
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult Register(User model)
+        public ActionResult Recharge()
         {
-
-            ModelState.Remove("ID");
-            ModelState.Remove("CreatedTime");
-            ModelState.Remove("IsDelete");
-            ModelState.Remove("Password");
-            if (ModelState.IsValid)
-            {
-                var result = IUserService.Register(model);
-                return JResult(result);
-            }
-            else
-            {
-                return ParamsErrorJResult(ModelState);
-            }
+            return View();
         }
+
+
         [HttpPost]
         public ActionResult Save(User model)
         {

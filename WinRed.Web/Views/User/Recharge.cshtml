@@ -1,0 +1,81 @@
+﻿@{
+}
+
+@section scripts
+{
+<script>
+        function submit() {
+            $("#submit").attr("disabled", true);
+            var type = $("#type").find(".sel").data('type');
+            if (type == undefined || type.length <= 0) {
+                $.alert("请选择充值金额");
+                $("#submit").attr("disabled", false);
+                return;
+            } var groupId = $("#hidGroupId").val();
+            $.Nuoya.action('/user/addrecharge',
+                { price: type ,groupId:groupId},
+                function (e) {
+                    $("#submit").attr("disabled", false);
+                    $.alert(e.message);
+                    if (e.status) { window.location = e.pageUrl; }
+                },true);
+        }
+
+        function checkType(obj) {
+            $(obj).parent().find(".price").removeClass("sel");
+            $(obj).addClass("sel");
+
+        }
+
+</script>
+    }
+
+<input type="hidden" value="0" id="hidGroupId" />
+<header class="bar bar-nav">
+    <a href="/group" class="icon pull-left hb_back"><span>更多充值</span></a>
+</header>
+<div class="content-item">
+    <ul class="renews" id="type">
+        <li class="price" data-type="20" onclick="checkType(this)">
+            <span>20元=20金币</span>
+        </li>
+        <li class="price" data-type="50" onclick="checkType(this)">
+            <span>50元=50金币</span>
+        </li>
+        <li class="price" data-type="100" onclick="checkType(this)">
+            <span>100元=100金币</span>
+        </li>
+        <li class="price" data-type="200" onclick="checkType(this)">
+            <span>200元=200金币</span>
+        </li>
+        <li class="price" data-type="500" onclick="checkType(this)">
+            <span>500元=500金币</span>
+        </li>
+        <li class="price" data-type="1000" onclick="checkType(this)">
+            <span>1000元=1000金币</span>
+        </li>
+    </ul>
+</div>
+<div class="kaifangbtn" style="margin-top: 35px; margin-bottom: 4rem;">
+    <a href="javascript:;" onclick="submit()" id="submit" class="weui-btn" style="background:#d55445;color: #fff;margin: 10px;">确认充值</a>
+</div>
+
+<div class="weui-tabbar" id="footer">
+    <a href="/" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="index"></i></div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/member/recharge" class="weui-tabbar__item weui-bar__item--on">
+        <div class="weui-tabbar__icon"><i class="addico"></i></div>
+        <p class="weui-tabbar__label">添加金币</p>
+    </a>
+
+    <a href="/group/newgroup" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="zuqunico"></i></div>
+        <p class="weui-tabbar__label">组群</p>
+    </a>
+    <a href="/member" class="weui-tabbar__item ">
+        <div class="weui-tabbar__icon"><i class="centerico"></i></div>
+        <p class="weui-tabbar__label">个人中心</p>
+    </a>
+</div>

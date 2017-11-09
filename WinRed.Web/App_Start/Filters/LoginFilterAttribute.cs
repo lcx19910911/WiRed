@@ -37,7 +37,7 @@ namespace WinRed.Web.Filters
                     {
                         if (actionMethod.ReturnType.Name == "ViewResult" || actionMethod.ReturnType.Name == "ActionResult")
                         {
-                            RedirectResult redirectResult = new RedirectResult("/login/index?redirecturl=" + requestUrl);
+                            RedirectResult redirectResult = new RedirectResult("/login/index?redirecturl=" + requestUrl+"&isadmin=1");
                             filterContext.Result = redirectResult;
                         }
                         else if (actionMethod.ReturnType.Name == "JsonResult")

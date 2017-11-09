@@ -1,0 +1,63 @@
+Application_End:shutDownMessage:
+Initialization Error
+HostingEnvironment initiated shutdown
+HostingEnvironment 导致关闭
+shutDownStack:
+   在 System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   在 System.Environment.get_StackTrace()
+   在 System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   在 System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   在 System.Web.HttpRuntime.ShutdownAppDomain(String stackTrace)
+   在 System.Web.HttpRuntime.AppDomainShutdownTimerCallback(Object state)
+   在 System.Threading.TimerQueueTimer.CallCallbackInContext(Object state)
+   在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.TimerQueueTimer.CallCallback()
+   在 System.Threading.TimerQueueTimer.Fire()
+   在 System.Threading.TimerQueue.FireNextTimers()
+   在 System.Threading.TimerQueue.AppDomainTimerCallback()
+shutDownReason:
+InitializationError
+
+Application_End:shutDownMessage:
+Initialization Error
+HostingEnvironment initiated shutdown
+HostingEnvironment 导致关闭
+shutDownStack:
+   在 System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   在 System.Environment.get_StackTrace()
+   在 System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   在 System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   在 System.Web.HttpRuntime.ShutdownAppDomain(String stackTrace)
+   在 System.Web.HttpRuntime.AppDomainShutdownTimerCallback(Object state)
+   在 System.Threading.TimerQueueTimer.CallCallbackInContext(Object state)
+   在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.TimerQueueTimer.CallCallback()
+   在 System.Threading.TimerQueueTimer.Fire()
+   在 System.Threading.TimerQueue.FireNextTimers()
+   在 System.Threading.TimerQueue.AppDomainTimerCallback()
+shutDownReason:
+InitializationError
+
+Application_End:shutDownMessage:
+Initialization Error
+HostingEnvironment initiated shutdown
+HostingEnvironment 导致关闭
+shutDownStack:
+   在 System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   在 System.Environment.get_StackTrace()
+   在 System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   在 System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   在 System.Web.HttpRuntime.ShutdownAppDomain(String stackTrace)
+   在 System.Web.HttpRuntime.AppDomainShutdownTimerCallback(Object state)
+   在 System.Threading.TimerQueueTimer.CallCallbackInContext(Object state)
+   在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.TimerQueueTimer.CallCallback()
+   在 System.Threading.TimerQueueTimer.Fire()
+   在 System.Threading.TimerQueue.FireNextTimers()
+   在 System.Threading.TimerQueue.AppDomainTimerCallback()
+shutDownReason:
+InitializationError
+

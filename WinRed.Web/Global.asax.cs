@@ -107,6 +107,7 @@ namespace WinRed.Web
 
         protected void Application_Error(object sender, EventArgs e)
         {
+
             var exception = Server.GetLastError();
             if (exception is ThreadAbortException)
             {
